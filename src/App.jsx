@@ -3,16 +3,30 @@ import './App.css'
 import genosIdle from './assets/default/genos_idle.gif'
 import genosSuperMove from './assets/Animations/genos_super_move.gif'
 import genosBlink from './assets/default/genos_blink.gif'
+import genosBlush from './assets/default/genos_blush.gif'
 import genosHappy from './assets/default/genos_happy.gif'
 import genosAngry from './assets/default/genos_angry.gif'
 import genosGoofy from './assets/default/genos_goofy.gif'
 import genosDefensive from './assets/default/genos_defensive.gif'
 import genosVengeful from './assets/default/genos_vengeful.gif'
 import genosSweating from './assets/default/genos_Sweating.gif'
+import genosYap from './assets/default/genos_yap.gif'
+import genosEhIdle from './assets/eh/genos_eh_idle.gif'
+import genosEhHappy from './assets/eh/genos_eh_happy.gif'
+import genosEhAngry from './assets/eh/genos_eh_angry.gif'
+import genosEhGoofy from './assets/eh/genos_eh_goofy.gif'
+import genosEhVengeful from './assets/eh/genos_eh_vengeful.gif'
+import genosEhBlink from './assets/eh/genos_eh_blink.gif'
+import genosEhYap from './assets/eh/genos_eh_yap.gif'
+import genosEhDefensive from './assets/eh/genos__eh_defensive.gif'
+import genosCombat from './assets/eh/genos_combat.gif'
 import lockOn from './assets/Target Reticle/lockon.png'
 import lockOn2 from './assets/Target Reticle/Lockon2.png'
 import lockOn3 from './assets/Target Reticle/Lockon3.png'
 import lockOnFr from './assets/Target Reticle/lockon_fr.png'
+import lockOnVeh from './assets/Target Reticle/lockon_veh.png'
+import genosHitMarker from './assets/Target Reticle/genoshitmarker.png'
+import genosCoreIcon from './assets/Backpack_ArmyFlour_icon.webp'
 import trackGenosMain from './assets/Music/genos_main.mp3'
 import trackIntensePower from './assets/Music/intense_power.mp3'
 import trackIntenseUplift from './assets/Music/intense_uplift.mp3'
@@ -412,16 +426,99 @@ const genosFrames = [
   { label: 'Angry', src: genosAngry },
 ]
 
+const genosReactions = {
+  idle: {
+    label: 'IDLE',
+    frame: genosEhIdle,
+    line: 'Systems online. Awaiting your command.',
+  },
+  scan: {
+    label: 'SCAN',
+    frame: genosEhBlink,
+    line: 'Scanning movement patterns. Stay sharp.',
+  },
+  click: {
+    label: 'ENGAGE',
+    frame: genosCombat,
+    line: 'Target confirmed. Combat mode engaged.',
+  },
+  scroll: {
+    label: 'DEFEND',
+    frame: genosEhDefensive,
+    line: 'Shielding the perimeter. I detected motion.',
+  },
+  key: {
+    label: 'ALERT',
+    frame: genosEhAngry,
+    line: 'Input spike detected. Recalculating now.',
+  },
+  hover: {
+    label: 'OBSERVE',
+    frame: genosEhHappy,
+    line: 'Efficient layout. I approve this field.',
+  },
+  art: {
+    label: 'ART',
+    frame: genosBlush,
+    line: 'Visual quality is increasing. Impressive.',
+  },
+  media: {
+    label: 'MEDIA',
+    frame: genosYap,
+    line: 'Media systems are active. I can process this.',
+  },
+  core: {
+    label: 'CORE',
+    frame: genosVengeful,
+    line: 'Incineration core online. Full power available.',
+  },
+  focus: {
+    label: 'FOCUS',
+    frame: genosEhVengeful,
+    line: 'Target lock reinforced. Keep your aim steady.',
+  },
+  chatter: {
+    label: 'VOICE',
+    frame: genosEhYap,
+    line: 'I can keep speaking if you want more reactions.',
+  },
+  goofy: {
+    label: 'GOOFY',
+    frame: genosEhGoofy,
+    line: 'That was unexpected. Diagnostics remain stable.',
+  },
+  happy: {
+    label: 'HAPPY',
+    frame: genosEhHappy,
+    line: 'This interaction is satisfactory.',
+  },
+}
+
 function App() {
   const [pointer, setPointer] = useState({ x: 48, y: 28 })
-  const [genosFrameIndex, setGenosFrameIndex] = useState(0)
+  const [idleFrameIndex, setIdleFrameIndex] = useState(0)
+  const [genosReaction, setGenosReaction] = useState(genosReactions.idle)
+  const [isClicking, setIsClicking] = useState(false)
+  const [reticlePulse, setReticlePulse] = useState(0)
   const hudTicks = Array.from({ length: 28 })
+  const reactionTimerRef = useRef(null)
+  const idleMotionRef = useRef({ x: 48, y: 28 })
+  const idleMotionTimeRef = useRef(0)
 
   const updatePointer = (event) => {
     const rect = event.currentTarget.getBoundingClientRect()
     const x = ((event.clientX - rect.left) / rect.width) * 100
     const y = ((event.clientY - rect.top) / rect.height) * 100
     setPointer({ x, y })
+
+    const now = Date.now()
+    const movementDelta = Math.abs(x - idleMotionRef.current.x) + Math.abs(y - idleMotionRef.current.y)
+
+    if (movementDelta > 7 && now - idleMotionTimeRef.current > 850) {
+      idleMotionRef.current = { x, y }
+      idleMotionTimeRef.current = now
+      triggerReaction('scan', 1100)
+    }
   }
 
   const tiltCard = (event) => {
@@ -440,24 +537,108 @@ function App() {
     event.currentTarget.style.setProperty('--tilt-y', '0deg')
   }
 
-  const activeFrame = genosFrames[genosFrameIndex % genosFrames.length]
+  const triggerReaction = (reactionKey, holdMs = 1600) => {
+    const reaction = genosReactions[reactionKey] ?? genosReactions.idle
+
+    if (reactionTimerRef.current) {
+      clearTimeout(reactionTimerRef.current)
+    }
+
+    setGenosReaction(reaction)
+    setReticlePulse((value) => value + 1)
+
+    reactionTimerRef.current = setTimeout(() => {
+      setGenosReaction(genosReactions.idle)
+    }, holdMs)
+  }
+
+  const activeFrame = genosReaction?.label && genosReaction.label !== 'IDLE'
+    ? { label: genosReaction.label, src: genosReaction.frame }
+    : genosFrames[idleFrameIndex % genosFrames.length]
+  const activeModeLabel = genosReaction?.label ?? 'IDLE'
+  const activeSpeech = genosReaction?.line ?? genosReactions.idle.line
 
   useEffect(() => {
+    if (genosReaction?.label !== 'IDLE') {
+      return undefined
+    }
+
     const frameTimer = setInterval(() => {
-      setGenosFrameIndex((prev) => (prev + 1) % genosFrames.length)
+      setIdleFrameIndex((prev) => (prev + 1) % genosFrames.length)
     }, 3200)
 
     return () => {
       clearInterval(frameTimer)
+    }
+  }, [genosReaction])
+
+  useEffect(() => {
+    const setDown = () => {
+      setIsClicking(true)
+      triggerReaction('click', 1300)
+    }
+
+    const setUp = () => setIsClicking(false)
+
+    const onScroll = () => triggerReaction('scroll', 1500)
+    const onKeyDown = () => triggerReaction('key', 1200)
+    const onFocus = () => triggerReaction('focus', 1200)
+    const onDoubleClick = () => triggerReaction('focus', 1500)
+
+    window.addEventListener('mousedown', setDown)
+    window.addEventListener('mouseup', setUp)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('focusin', onFocus)
+    window.addEventListener('dblclick', onDoubleClick)
+
+    return () => {
+      window.removeEventListener('mousedown', setDown)
+      window.removeEventListener('mouseup', setUp)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('focusin', onFocus)
+      window.removeEventListener('dblclick', onDoubleClick)
+      if (reactionTimerRef.current) {
+        clearTimeout(reactionTimerRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const onBeforeUnload = () => {
+      if (reactionTimerRef.current) {
+        clearTimeout(reactionTimerRef.current)
+      }
+    }
+
+    window.addEventListener('beforeunload', onBeforeUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload)
     }
   }, [])
 
   return (
     <div
       className="app-shell"
-      style={{ '--pointer-x': `${pointer.x}%`, '--pointer-y': `${pointer.y}%` }}
+      style={{
+        '--pointer-x': `${pointer.x}%`,
+        '--pointer-y': `${pointer.y}%`,
+        cursor: `url(${isClicking ? genosHitMarker : lockOnVeh}) 16 16, crosshair`,
+      }}
       onMouseMove={updatePointer}
+      onMouseEnter={() => triggerReaction('hover', 900)}
+      onTouchStart={() => triggerReaction('focus', 1400)}
     >
+      <div
+        className={`cursor-reticle ${isClicking ? 'cursor-reticle--active' : ''}`}
+        style={{ left: `${pointer.x}%`, top: `${pointer.y}%` }}
+        aria-hidden="true"
+      >
+        <img src={isClicking ? genosHitMarker : lockOnVeh} alt="" />
+      </div>
+
       <header className="topbar">
         <p className="brand">GENOS // CYBER CORE</p>
         <nav>
@@ -556,11 +737,18 @@ function App() {
           <div className="core-ring" />
           <div className="core-ring ring-2" />
           <div className="core-ring ring-3" />
-          <div className="core-center" />
+          <img src={lockOnFr} alt="" className="core-reticle core-reticle-a" />
+          <img src={lockOnVeh} alt="" className="core-reticle core-reticle-b" />
+          <img src={genosCoreIcon} alt="Genos Incineration Core" className="core-icon" />
         </div>
 
-        <div className="genos-avatar-panel">
-          <p className="mode-label">Default Mode</p>
+        <div className={`genos-avatar-panel ${genosReaction?.label !== 'IDLE' ? 'genos-avatar-panel--reacting' : ''}`}>
+          <p className="mode-label">{activeModeLabel} Mode</p>
+
+          <div className={`genos-speech ${genosReaction?.label !== 'IDLE' ? 'genos-speech--active' : ''}`}>
+            <p className="genos-speech-name">GENOS</p>
+            <p>{activeSpeech}</p>
+          </div>
 
           <div className="genos-avatar-wrap">
             <img src={lockOn2} alt="" className="reticle reticle-back" aria-hidden="true" />
@@ -568,9 +756,14 @@ function App() {
             <img src={activeFrame.src} alt={`Genos ${activeFrame.label}`} className="genos-avatar" />
             <img src={lockOn3} alt="" className="reticle reticle-front" aria-hidden="true" />
             <img src={lockOnFr} alt="" className="reticle reticle-flash" aria-hidden="true" />
+            <img src={lockOnVeh} alt="" className="reticle reticle-mini reticle-mini-one" aria-hidden="true" />
+            <img src={lockOnVeh} alt="" className="reticle reticle-mini reticle-mini-two" aria-hidden="true" />
+            <img src={genosHitMarker} alt="" className="reticle reticle-hitmark" aria-hidden="true" />
+            <span className="scanner-line scanner-line-a" aria-hidden="true" />
+            <span className="scanner-line scanner-line-b" aria-hidden="true" />
           </div>
 
-          <p className="avatar-status">Expression: {activeFrame.label}</p>
+          <p className="avatar-status">Expression: {activeFrame.label} | Reaction: {activeModeLabel}</p>
         </div>
 
         <div className="stats-grid">
