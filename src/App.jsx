@@ -11,6 +11,13 @@ import genosDefensive from './assets/default/genos_defensive.gif'
 import genosVengeful from './assets/default/genos_vengeful.gif'
 import genosSweating from './assets/default/genos_Sweating.gif'
 import genosYap from './assets/default/genos_yap.gif'
+import genosIncinerate from './assets/Genos_Gifs/genos_incinerate.gif'
+import genosLight from './assets/Genos_Gifs/genos_light.gif'
+import genosOverheat from './assets/Genos_Gifs/genos_overheat.gif'
+import genosActionStand from './assets/Genos_Gifs/genos_stand.gif'
+import genosActionUp from './assets/Genos_Gifs/Genos_up.gif'
+import genosActionHeat from './assets/Genos_Gifs/genos_heat_dmg.gif'
+import genosActionIdles from './assets/Genos_Gifs/Genos_idles.gif'
 import genosEhIdle from './assets/eh/genos_eh_idle.gif'
 import genosEhHappy from './assets/eh/genos_eh_happy.gif'
 import genosEhAngry from './assets/eh/genos_eh_angry.gif'
@@ -417,7 +424,9 @@ const commandTags = ['AGILE BUILD', 'COMBAT LOGIC', 'MOBILE DEPLOY', 'API SYSTEM
 
 const genosFrames = [
   { label: 'Idle', src: genosIdle },
+  { label: 'Action Idle', src: genosActionIdles },
   { label: 'Blink', src: genosBlink },
+  { label: 'Stand Ready', src: genosActionStand },
   { label: 'Happy', src: genosHappy },
   { label: 'Defensive', src: genosDefensive },
   { label: 'Goofy', src: genosGoofy },
@@ -430,67 +439,67 @@ const genosReactions = {
   idle: {
     label: 'IDLE',
     frame: genosEhIdle,
-    line: 'Systems online. Awaiting your command.',
+    line: "I'm ready. Let me know what you need.",
   },
   scan: {
     label: 'SCAN',
-    frame: genosEhBlink,
-    line: 'Scanning movement patterns. Stay sharp.',
+    frame: genosLight,
+    line: "Just taking a look around.",
   },
   click: {
     label: 'ENGAGE',
-    frame: genosCombat,
-    line: 'Target confirmed. Combat mode engaged.',
+    frame: genosIncinerate,
+    line: 'Got it. Moving in.',
   },
   scroll: {
     label: 'DEFEND',
-    frame: genosEhDefensive,
-    line: 'Shielding the perimeter. I detected motion.',
+    frame: genosActionUp,
+    line: 'Hey, watch your step.',
   },
   key: {
     label: 'ALERT',
-    frame: genosEhAngry,
-    line: 'Input spike detected. Recalculating now.',
+    frame: genosActionHeat,
+    line: "You're typing fast. What's the plan?",
   },
   hover: {
     label: 'OBSERVE',
     frame: genosEhHappy,
-    line: 'Efficient layout. I approve this field.',
+    line: 'Looks good. Nice to meet you.',
   },
   art: {
     label: 'ART',
-    frame: genosBlush,
-    line: 'Visual quality is increasing. Impressive.',
+    frame: genosEhIdle,
+    line: 'This looks great.',
   },
   media: {
     label: 'MEDIA',
     frame: genosYap,
-    line: 'Media systems are active. I can process this.',
+    line: 'Checking out the media now.',
   },
   core: {
     label: 'CORE',
-    frame: genosVengeful,
-    line: 'Incineration core online. Full power available.',
+    frame: genosOverheat,
+    line: 'I need to cool down for a second.',
   },
   focus: {
     label: 'FOCUS',
     frame: genosEhVengeful,
-    line: 'Target lock reinforced. Keep your aim steady.',
+    line: "I've got my eyes on it.",
   },
   chatter: {
     label: 'VOICE',
     frame: genosEhYap,
-    line: 'I can keep speaking if you want more reactions.',
+    line: "We can keep talking if you want.",
   },
   goofy: {
-    label: 'GOOFY',
-    frame: genosEhGoofy,
-    line: 'That was unexpected. Diagnostics remain stable.',
+    label: 'NORMAL',
+    frame: genosEhIdle,
+    line: 'Sure thing.',
   },
   happy: {
     label: 'HAPPY',
     frame: genosEhHappy,
-    line: 'This interaction is satisfactory.',
+    line: "I'm glad to see that.",
   },
 }
 
@@ -640,7 +649,7 @@ function App() {
       </div>
 
       <header className="topbar">
-        <p className="brand">GENOS // CYBER CORE</p>
+        <p className="brand">ARPAN // PORTFOLIO</p>
         <nav>
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
@@ -701,7 +710,7 @@ function App() {
           <p className="eyebrow">SYSTEM ONLINE</p>
           <h1>
             {profile.name}
-            <span> Genos-Core Precision</span>
+            <span> Dedicated to Excellence</span>
           </h1>
           <p className="role-line">{profile.roles}</p>
           <p className="meta-line">{profile.location}</p>
@@ -734,6 +743,8 @@ function App() {
 
         <div className="genos-core" aria-hidden="true">
           <p className="core-label">INCINERATION CORE</p>
+          <div className="core-fire" />
+          <div className="core-fire-inner" />
           <div className="core-ring" />
           <div className="core-ring ring-2" />
           <div className="core-ring ring-3" />

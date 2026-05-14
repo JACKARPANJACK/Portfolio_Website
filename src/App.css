@@ -606,12 +606,14 @@
 .core-reticle-a {
   width: 54%;
   animation: spin 8s linear infinite;
+  transform: translate(calc((var(--pointer-x) - 50%) * 0.15), calc((var(--pointer-y) - 50%) * 0.15));
 }
 
 .core-reticle-b {
   width: 43%;
   opacity: 0.45;
   animation: spin-reverse 6s linear infinite;
+  transform: translate(calc((var(--pointer-x) - 50%) * -0.2), calc((var(--pointer-y) - 50%) * -0.2));
 }
 
 .stats-grid {
@@ -717,7 +719,7 @@
 .reticle {
   position: absolute;
   inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(calc(-50% + var(--tilt-x, 0deg) * 2), calc(-50% + var(--tilt-y, 0deg) * 2));
   pointer-events: none;
   mix-blend-mode: screen;
 }
@@ -726,24 +728,28 @@
   width: 72%;
   opacity: 0.35;
   animation: spin-center 16s linear infinite;
+  transform: translate(calc(-50% + (var(--pointer-x) - 50%) * -0.2), calc(-50% + (var(--pointer-y) - 50%) * -0.2)) rotate(0deg);
 }
 
 .reticle-mid {
   width: 68%;
   opacity: 0.28;
   animation: spin-reverse 10s linear infinite;
+  transform: translate(calc(-50% + (var(--pointer-x) - 50%) * 0.1), calc(-50% + (var(--pointer-y) - 50%) * 0.1));
 }
 
 .reticle-front {
   width: 60%;
   opacity: 0.42;
   animation: pulse 2.1s ease-in-out infinite;
+  transform: translate(calc(-50% + (var(--pointer-x) - 50%) * 0.25), calc(-50% + (var(--pointer-y) - 50%) * 0.25));
 }
 
 .reticle-flash {
   width: 18%;
   opacity: 0.65;
   animation: ping 1.7s ease-in-out infinite;
+  transform: translate(calc(-50% + (var(--pointer-x) - 50%) * 0.4), calc(-50% + (var(--pointer-y) - 50%) * 0.4));
 }
 
 .reticle-mini {
@@ -752,23 +758,23 @@
 }
 
 .reticle-mini-one {
-  left: 18%;
-  top: 30%;
+  left: calc(18% + (var(--pointer-x) - 50%) * -0.3);
+  top: calc(30% + (var(--pointer-y) - 50%) * -0.3);
   transform: translate(-50%, -50%);
   animation: spin 6s linear infinite;
 }
 
 .reticle-mini-two {
-  left: 82%;
-  top: 67%;
+  left: calc(82% + (var(--pointer-x) - 50%) * 0.3);
+  top: calc(67% + (var(--pointer-y) - 50%) * 0.3);
   transform: translate(-50%, -50%);
   animation: spin-reverse 5.2s linear infinite;
 }
 
 .reticle-hitmark {
   width: 12%;
-  left: 74%;
-  top: 36%;
+  left: calc(74% + (var(--pointer-x) - 50%) * 0.5);
+  top: calc(36% + (var(--pointer-y) - 50%) * 0.5);
   transform: translate(-50%, -50%);
   opacity: 0.52;
   animation: ping 2.1s ease-in-out infinite;
@@ -1352,4 +1358,72 @@ footer {
   .card-actions {
     flex-direction: column;
   }
+}
+
+.core-fire {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  z-index: 2;
+  background: radial-gradient(circle, rgba(255, 143, 0, 0.8) 10%, rgba(255, 50, 0, 0.5) 50%, transparent 75%);
+  filter: blur(6px);
+  animation: fire-pulse 0.9s ease-in-out infinite alternate, spin 4s linear infinite;
+  mix-blend-mode: color-dodge;
+}
+
+.core-fire-inner {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  z-index: 2;
+  background: radial-gradient(circle, rgba(255, 230, 100, 0.95) 20%, rgba(255, 120, 0, 0.7) 60%, transparent 85%);
+  filter: blur(3px);
+  animation: fire-pulse 0.6s ease-in-out infinite alternate-reverse, spin-reverse 3s linear infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes fire-pulse {
+  0% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+  50% { transform: scale(1.15) rotate(10deg); opacity: 1; filter: blur(8px); }
+  100% { transform: scale(1.3) rotate(-5deg); opacity: 0.9; }
+}
+
+.anime-speed-lines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg 10deg, rgba(255, 255, 255, 0.15) 10deg 12deg);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.anime-speed-lines.active {
+  opacity: 1;
+  animation: speed-spin 0.2s linear infinite;
+}
+
+@keyframes speed-spin {
+  0% { transform: scale(3) rotate(0deg); }
+  100% { transform: scale(3) rotate(15deg); }
+}
+
+.impact-frame {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 101;
+  background: white;
+  opacity: 0;
+}
+
+.impact-frame.active {
+  animation: flash 0.15s ease-out;
+}
+
+@keyframes flash {
+  0% { opacity: 0.8; }
+  100% { opacity: 0; }
 }
