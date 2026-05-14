@@ -37,6 +37,7 @@ import genosCoreIcon from './assets/Backpack_ArmyFlour_icon.webp'
 import trackGenosMain from './assets/Music/genos_main.mp3'
 import trackIntensePower from './assets/Music/intense_power.mp3'
 import trackIntenseUplift from './assets/Music/intense_uplift.mp3'
+import Chat from './components/Chat'
 
 const profile = {
   name: 'ARPAN PARAMANIK',
@@ -970,6 +971,7 @@ function App() {
       <footer>
         <p>Ready for your next mission. Reach me at {profile.email}</p>
       </footer>
+      <Chat />
     </div>
   )
 }
