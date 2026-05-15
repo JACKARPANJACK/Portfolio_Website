@@ -570,6 +570,26 @@ const genosReactions = {
   }
 }
 
+function ExpandableSection({ id, title, children, defaultExpanded = true, onMouseEnter }) {
+  const [expanded, setExpanded] = useState(defaultExpanded)
+  
+  return (
+    <section id={id} className={`info-board toggleable-section ${expanded ? 'expanded' : 'collapsed'}`} onMouseEnter={onMouseEnter}>
+      <div className="section-header" onClick={() => setExpanded(!expanded)} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', userSelect: 'none'}}>
+        <h2 className="section-title">{title}</h2>
+        <button className="toggle-btn" style={{background: 'none', border: '1px solid var(--sun)', borderRadius: '0.5rem', color: 'var(--sun)', padding: '0.3rem 0.7rem', cursor: 'pointer', fontFamily: 'var(--mono)', transition: 'all 0.2s'}}>
+          {expanded ? '[-] HUD Collapse' : '[+] HUD Expand'}
+        </button>
+      </div>
+      <div className={`section-content-wrapper ${expanded ? 'content-expanded' : 'content-collapsed'}`}>
+        <div className="section-content">
+          {children}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function App() {
   const [pointer, setPointer] = useState({ x: 48, y: 28 })
   const [idleFrameIndex, setIdleFrameIndex] = useState(0)
@@ -880,8 +900,7 @@ function App() {
         </div>
       </section>
 
-      <section id="skills" className="info-board" onMouseEnter={() => triggerReaction('core', 2500)}>
-        <h2 className="section-title">Technical Skills</h2>
+      <ExpandableSection id="skills" title="Technical Skills" onMouseEnter={() => triggerReaction('core', 2500)}>
         <div className="skill-grid">
           {skillGroups.map((group) => (
             <article className="info-card" key={group.title}>
@@ -894,10 +913,9 @@ function App() {
             </article>
           ))}
         </div>
-      </section>
+      </ExpandableSection>
 
-      <section id="experience" className="info-board" onMouseEnter={() => triggerReaction('chatter', 2500)}>
-        <h2 className="section-title">Work Experience</h2>
+      <ExpandableSection id="experience" title="Work Experience" defaultExpanded={false} onMouseEnter={() => triggerReaction('chatter', 2500)}>
         <div className="timeline">
           {workExperience.map((job) => (
             <article className="timeline-item" key={`${job.role}-${job.duration}`}>
@@ -917,53 +935,56 @@ function App() {
             </article>
           ))}
         </div>
-      </section>
+      </ExpandableSection>
 
-      <section id="projects" className="project-grid" onMouseEnter={() => triggerReaction('chatter', 2500)}>
-        {projects.map((project) => (
-          <article
-            className="project-card"
-            key={project.title}
-            onMouseMove={tiltCard}
-            onMouseLeave={resetTilt}
-          >
-            <p className="card-title">{project.title}</p>
-            <p className="card-summary">{project.summary}</p>
-            <ul className="stack-list">
-              {project.stack.map((tech) => (
-                <li key={`${project.title}-${tech}`}>{tech}</li>
-              ))}
-            </ul>
-            <div className="card-actions">
-              {project.live ? (
-                <a href={project.live} target="_blank" rel="noreferrer">
-                  Live Demo
+      <ExpandableSection id="projects" title="Projects & Repositories" onMouseEnter={() => triggerReaction('chatter', 2500)}>
+        <div className="project-grid">
+          {projects.map((project) => (
+            <article
+              className="project-card"
+              key={project.title}
+              onMouseMove={tiltCard}
+              onMouseLeave={resetTilt}
+            >
+              <p className="card-title">{project.title}</p>
+              <p className="card-summary">{project.summary}</p>
+              <ul className="stack-list">
+                {project.stack.map((tech) => (
+                  <li key={`${project.title}-${tech}`}>{tech}</li>
+                ))}
+              </ul>
+              <div className="card-actions">
+                {project.live ? (
+                  <a href={project.live} target="_blank" rel="noreferrer">
+                    Live Demo
+                  </a>
+                ) : (
+                  <span className="disabled-link">No live demo</span>
+                )}
+                <a href={project.repo} target="_blank" rel="noreferrer">
+                  Source Code
                 </a>
-              ) : (
-                <span className="disabled-link">No live demo</span>
-              )}
-              <a href={project.repo} target="_blank" rel="noreferrer">
-                Source Code
+              </div>
+            </article>
+          ))}
+        </div>
+      </ExpandableSection>
+
+      <ExpandableSection id="mods" title="Mods & Custom Addons" defaultExpanded={false} onMouseEnter={() => triggerReaction('combat', 2500)}>
+        <div className="mod-grid">
+          {mods.map((mod) => (
+            <article className="mod-card" key={mod.title}>
+              <p className="card-title">{mod.title}</p>
+              <p className="card-summary">{mod.summary}</p>
+              <a href={mod.repo} target="_blank" rel="noreferrer" className="mini-link">
+                View Repository
               </a>
-            </div>
-          </article>
-        ))}
-      </section>
+            </article>
+          ))}
+        </div>
+      </ExpandableSection>
 
-      <section id="mods" className="mod-grid" onMouseEnter={() => triggerReaction('combat', 2500)}>
-        {mods.map((mod) => (
-          <article className="mod-card" key={mod.title}>
-            <p className="card-title">{mod.title}</p>
-            <p className="card-summary">{mod.summary}</p>
-            <a href={mod.repo} target="_blank" rel="noreferrer" className="mini-link">
-              View Repository
-            </a>
-          </article>
-        ))}
-      </section>
-
-      <section id="art-2d" className="info-board media-board" onMouseEnter={() => triggerReaction('art', 2500)}>
-        <h2 className="section-title">2D Art</h2>
+      <ExpandableSection id="art-2d" title="2D Art & Concepts" defaultExpanded={false} onMouseEnter={() => triggerReaction('art', 2500)}>
         <div className="asset-grid">
           {twoDArtAssets.map((item) => (
             <article className="asset-card" key={`2d-${item.src}`}>
@@ -988,10 +1009,9 @@ function App() {
             </article>
           ))}
         </div>
-      </section>
+      </ExpandableSection>
 
-      <section id="art-3d" className="info-board media-board">
-        <h2 className="section-title">3D Art</h2>
+      <ExpandableSection id="art-3d" title="3D Art & Prototyping" defaultExpanded={false}>
         <div className="asset-grid asset-grid-3d">
           {threeDArtItems.map((item) => (
             <article className="asset-card" key={item.title}>
@@ -1003,10 +1023,9 @@ function App() {
             </article>
           ))}
         </div>
-      </section>
+      </ExpandableSection>
 
-      <section id="animations" className="info-board media-board" onMouseEnter={() => triggerReaction('jetdrive', 2500)}>
-        <h2 className="section-title">Animations (From Assets Folder)</h2>
+      <ExpandableSection id="animations" title="Animations (From Assets Folder)" defaultExpanded={false} onMouseEnter={() => triggerReaction('jetdrive', 2500)}>
         <div className="asset-grid">
           {animationAssets.map((item) => (
             <article className="asset-card" key={`anim-${item.src}`}>
@@ -1021,17 +1040,17 @@ function App() {
             </article>
           ))}
         </div>
-      </section>
+      </ExpandableSection>
 
-      <section id="education" className="education-card">
-        <h2 className="section-title">Education</h2>
-        <p className="timeline-role">Bachelor of Technology (B.Tech) - Computer Science Engineering</p>
-        <p className="timeline-org">Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar</p>
-        <p className="timeline-date">Apr 2023 - Apr 2027</p>
-      </section>
+      <ExpandableSection id="education" title="Education" defaultExpanded={false}>
+        <div className="education-card">
+          <p className="timeline-role">Bachelor of Technology (B.Tech) - Computer Science Engineering</p>
+          <p className="timeline-org">Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar</p>
+          <p className="timeline-date">Apr 2023 - Apr 2027</p>
+        </div>
+      </ExpandableSection>
 
-      <section id="videos" className="video-section" onMouseEnter={() => triggerReaction('media', 2500)}>
-        <h2 className="section-title">Showcase Videos</h2>
+      <ExpandableSection id="videos" title="Showcase Videos" defaultExpanded={false} onMouseEnter={() => triggerReaction('media', 2500)}>
         {videoSections.map((section) => (
           <div className="video-group" key={section.title}>
             <h3>{section.title}</h3>
@@ -1052,7 +1071,7 @@ function App() {
             </div>
           </div>
         ))}
-      </section>
+      </ExpandableSection>
 
       <footer>
         <p>Ready for your next mission. Reach me at {profile.email}</p>
