@@ -298,26 +298,43 @@ const videoSections = [
 
 
 const techStackIcons = [
-  { name: 'Assembly', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBlNmQ2IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSI0IiB5PSI0IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJ4PSIyIiByeT0iMiI+PC9yZWN0PjxyZWN0IHg9IjkiIHk9IjkiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiPjwvcmVjdD48bGluZSB4MT0iOSIgeTE9IjEiIHgyPSI5IiB5Mj0iNCI+PC9saW5lPjxsaW5lIHgxPSIxNSIgeTE9IjEiIHgyPSIxNSIgeTI9IjQiPjwvbGluZT48bGluZSB4MT0iOSIgeTE9IjIwIiB4Mj0iOSIgeTI9IjIzIj48L2xpbmU+PGxpbmUgeDE9IjE1IiB5MT0iMjAiIHgyPSIxNSIgeTI9IjIzIj48L2xpbmU+PGxpbmUgeDE9IjIwIiB5MT0iOSIgeTI9IjIzIiB5Mj0iOSI+PC9saW5lPjxsaW5lIHgxPSIyMCIgeTE9IjE0IiB4Mj0iMjMiIHkyPSIxNCI+PC9saW5lPjxsaW5lIHgxPSIxIiB5MT0iOSIgeTI9IjQiIHkyPSI5Ij48L2xpbmU+PGxpbmUgeDE9IjEiIHkxPSIxNCIgeTI9IjQiIHkyPSIxNCI+PC9saW5lPjwvc3ZnPg==' },
-  { name: 'IDA Pro', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgZmlsbD0icmdiYSg4LDEzLDI0LDAuOCkiIHJ4PSIyNCIgc3Ryb2tlPSIjZmY4ZjAwIiBzdHJva2Utd2lkdGg9IjQiLz48dGV4dCB4PSI2NCIgeT0iODAiIGZpbGw9IiNmZjhmMDAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNDQiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JREE8L3RleHQ+PC9zdmc+' },
-  { name: 'Ghidra', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgZmlsbD0icmdiYSg4LDEzLDI0LDAuOCkiIHJ4PSIyNCIgc3Ryb2tlPSIjZGIyODI4IiBzdHJva2Utd2lkdGg9IjQiLz48dGV4dCB4PSI2NCIgeT0iODAiIGZpbGw9IiNkYjI4MjgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMzAiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5HSElEUkE8L3RleHQ+PC9zdmc+' },
+  { name: 'Assembly', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjMDBlNmQ2JyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyMwMGU2ZDYnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMzQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5BU008L3RleHQ+PC9zdmc+' },
+  { name: 'NASM', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjNGI5MWY1JyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyM0YjkxZjUnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMzQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5OQVNNPC90ZXh0Pjwvc3ZnPg==' },
+  { name: 'IDA Pro', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjZmY4ZjAwJyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyNmZjhmMDAnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMzQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5JREE8L3RleHQ+PC9zdmc+' },
+  { name: 'Ghidra', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjZGIyODI4JyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyNkYjI4MjgnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMjQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5HSElEUkE8L3RleHQ+PC9zdmc+' },
+  { name: 'Radare2', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjZDYyZDIwJyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyNkNjJkMjAnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMjQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5yYWRhcmUyPC90ZXh0Pjwvc3ZnPg==' },
+  { name: 'Wireshark', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjMTY3OWE3JyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyMxNjc5YTcnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMjQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5XaXJlU2g8L3RleHQ+PC9zdmc+' },
   { name: 'Unity', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg' },
   { name: 'Unreal', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg' },
   { name: 'Godot', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg' },
-  { name: 'Java', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg' },
-  { name: 'C#', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg' },
+  { name: 'C', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg' },
   { name: 'C++', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg' },
+  { name: 'C#', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg' },
   { name: 'Python', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
+  { name: 'Java', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg' },
   { name: 'JavaScript', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
   { name: 'React', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
   { name: 'Node.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
   { name: 'Django', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg' },
-  { name: 'Android', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg' },
+  { name: 'Git', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
   { name: 'Blender', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg' },
-  { name: 'Git', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' }
+  { name: '3ds Max', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjMzc5YTk3JyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyMzNzlhOTcnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMjQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz4zZHNNYXg8L3RleHQ+PC9zdmc+' },
+  { name: 'Photoshop', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg' },
+  { name: 'Krita', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjZmY0MmRjJyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyNmZjQyZGMnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMzQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5Lcml0YTwvdGV4dD48L3N2Zz4=' },
+  { name: 'Clip Studio', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjMDBiZmZmJyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyMwMGJmZmYnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMzQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5DU1A8L3RleHQ+PC9zdmc+' },
+  { name: 'Substance Ptr', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjZWQyMjI0JyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyNlZDIyMjQnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMzQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5TYnNQdDwvdGV4dD48L3N2Zz4=' },
+  { name: 'Marmoset', url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMjggMTI4Jz48cmVjdCB3aWR0aD0nMTI4JyBoZWlnaHQ9JzEyOCcgZmlsbD0ncmdiYSg4LDEzLDI0LDAuOCknIHJ4PScyNCcgc3Ryb2tlPScjZmZhYTAwJyBzdHJva2Utd2lkdGg9JzQnLz48dGV4dCB4PSc2NCcgeT0nODAnIGZpbGw9JyNmZmFhMDAnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZvbnQtc2l6ZT0nMjQnIGZvbnQtd2VpZ2h0PSdib2xkJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5Ncm1zZXQ8L3RleHQ+PC9zdmc+' },
 ]
 
 const skillGroups = [
+  {
+    title: 'Reverse Engineering & Cybersecurity',
+    items: [
+      'Tools: IDA Pro, Ghidra, Radare2, Wireshark, NASM',
+      'Workflows: Static & Dynamic analysis, Exploit testing, Threat modeling, Penetration testing',
+      'Software & Hardware vulnerability assessments, Memory corruption exploits, Malware analysis',
+    ],
+  },
   {
     title: 'Game Development',
     items: [
@@ -329,9 +346,18 @@ const skillGroups = [
   {
     title: 'Programming and Software Development',
     items: [
-      'Java, C#, C++, Python, JavaScript, SQL',
+      'Java, C, C#, C++, Python, JavaScript, SQL',
       'Node.js, React.js, Django, Express.js',
       'OOP, REST APIs, Git, software architecture',
+    ],
+  },
+  {
+    title: 'Art and Creative Tools',
+    items: [
+      '3D Modeling & Texturing: Blender, 3ds Max, ZBrush',
+      'Texturing & Baking: Adobe Substance Painter, Marmoset Toolbag',
+      '2D Art & Editing: Photoshop, Krita, Clip Studio Paint',
+      'Rigging, texture mapping, VFX, game asset optimization',
     ],
   },
   {
@@ -342,17 +368,6 @@ const skillGroups = [
       'Backend development using Node.js, Express.js, and Django',
       'API, database, authentication integration, and deployment',
     ],
-  },
-  {
-    title: 'Art and Creative Tools',
-    items: [
-      'Blender, ZBrush, Substance Painter, Photoshop',
-      '3D modeling, rigging, texture mapping, VFX',
-    ],
-  },
-  {
-    title: 'Additional Areas',
-    items: ['Reverse engineering and modding', 'Cybersecurity and penetration testing', 'AR/VR development'],
   },
 ]
 
