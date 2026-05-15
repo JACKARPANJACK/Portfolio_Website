@@ -265,15 +265,105 @@
   mix-blend-mode: screen;
 }
 
+@keyframes spin-reticle {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .cursor-reticle img {
   width: 34px;
   height: 34px;
   display: block;
   filter: drop-shadow(0 0 10px rgba(255, 206, 60, 0.65));
+  animation: spin-reticle 4s linear infinite;
+}
+
+.cursor-reticle::before,
+.cursor-reticle::after {
+  content: '';
+  position: absolute;
+  background: rgba(0, 230, 214, 0.5);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.2s, width 0.3s ease-out, height 0.3s ease-out;
+}
+
+.cursor-reticle::before {
+  top: 50%;
+  left: -50vw;
+  width: 0vw;
+  height: 1px;
+}
+
+.cursor-reticle::after {
+  top: -50vh;
+  left: 50%;
+  width: 1px;
+  height: 0vh;
+}
+
+.app-shell:has(.info-card:hover) .cursor-reticle::before,
+.app-shell:has(.toggleable-section:hover) .cursor-reticle::before,
+.app-shell:has(.project-card:hover) .cursor-reticle::before,
+.app-shell:has(.mod-card:hover) .cursor-reticle::before,
+.app-shell:has(.timeline-item:hover) .cursor-reticle::before,
+.app-shell:has(.asset-card:hover) .cursor-reticle::before {
+  opacity: 1;
+  width: 100vw;
+}
+
+.app-shell:has(.info-card:hover) .cursor-reticle::after,
+.app-shell:has(.toggleable-section:hover) .cursor-reticle::after,
+.app-shell:has(.project-card:hover) .cursor-reticle::after,
+.app-shell:has(.mod-card:hover) .cursor-reticle::after,
+.app-shell:has(.timeline-item:hover) .cursor-reticle::after,
+.app-shell:has(.asset-card:hover) .cursor-reticle::after {
+  opacity: 1;
+  height: 100vh;
 }
 
 .cursor-reticle--active {
   transform: translate(-50%, -50%) scale(1.22);
+}
+
+.info-card::before,
+.project-card::before,
+.mod-card::before,
+.timeline-item::before,
+.asset-card::before,
+.hud-cell::before,
+.toggleable-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 20;
+  background: 
+    linear-gradient(to right, var(--neon) 2px, transparent 2px) 0 0,
+    linear-gradient(to bottom, var(--neon) 2px, transparent 2px) 0 0,
+    linear-gradient(to left, var(--neon) 2px, transparent 2px) 100% 0,
+    linear-gradient(to bottom, var(--neon) 2px, transparent 2px) 100% 0,
+    linear-gradient(to right, var(--neon) 2px, transparent 2px) 0 100%,
+    linear-gradient(to top, var(--neon) 2px, transparent 2px) 0 100%,
+    linear-gradient(to left, var(--neon) 2px, transparent 2px) 100% 100%,
+    linear-gradient(to top, var(--neon) 2px, transparent 2px) 100% 100%;
+  background-size: 15px 15px;
+  background-repeat: no-repeat;
+}
+
+.info-card:hover::before,
+.project-card:hover::before,
+.mod-card:hover::before,
+.timeline-item:hover::before,
+.asset-card:hover::before,
+.hud-cell:hover::before,
+.toggleable-section:hover::after {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .hero-zone > * {
@@ -931,6 +1021,7 @@
 }
 
 .info-board {
+  position: relative;
   margin-top: 1.4rem;
   border: 1px solid var(--line);
   border-radius: 1rem;
@@ -1661,13 +1752,13 @@ footer {
   background-color: #050a10;
 }
 
-.genos-bg-iframe {
+.genos-bg-image {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150vw;
-  height: 150vh;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
   pointer-events: none;
   opacity: 0;
   transition: opacity 3s ease-in-out;
@@ -1675,7 +1766,7 @@ footer {
   filter: saturate(1.2) contrast(1.1);
 }
 
-.genos-bg-iframe.active {
+.genos-bg-image.active {
   opacity: 0.15;
 }
 

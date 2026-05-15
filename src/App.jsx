@@ -592,27 +592,30 @@ function ExpandableSection({ id, title, children, defaultExpanded = true, onMous
 }
 
 function GenosBackground() {
-  const tenorIds = ['16051370', '14424982', '5402793842799270410', '1832920909499489156']
+  const tenorGifs = [
+    'https://media.tenor.com/p0oSGxuRogMAAAAC/genos-robot-idol-genos-renatoxd.gif',
+    'https://media.tenor.com/sWPaEnG8RBwAAAAC/one-punch-man-genos.gif',
+    'https://media.tenor.com/SvqUX_K32goAAAAC/one-punch-man-genos-walk.gif',
+    'https://media.tenor.com/GW_X2yAaW4QAAAAC/genos-one-punch-man.gif'
+  ]
   const [bgIndex, setBgIndex] = useState(0)
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setBgIndex(current => (current + 1) % tenorIds.length)
+      setBgIndex(current => (current + 1) % tenorGifs.length)
     }, 10000)
     return () => clearInterval(timer)
   }, [])
 
   return (
     <div className="genos-bg-container" aria-hidden="true">
-      {tenorIds.map((id, index) => (
-        <iframe
-          key={id}
-          className={`genos-bg-iframe ${index === bgIndex ? 'active' : ''}`}
-          src={`https://tenor.com/embed/${id}?autoplay=1`}
-          frameBorder="0"
-          scrolling="no"
-          title={`Genos BG ${id}`}
-        ></iframe>
+      {tenorGifs.map((src, index) => (
+        <img
+          key={index}
+          className={`genos-bg-image ${index === bgIndex ? 'active' : ''}`}
+          src={src}
+          alt={`Genos BG ${index}`}
+        />
       ))}
       <div className="genos-bg-overlay"></div>
     </div>

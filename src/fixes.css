@@ -1,0 +1,36 @@
+/* Update HUD Target Corners and cursor styles */
+.info-board {
+  position: relative;
+}
+
+.toggleable-section::before {
+  /* Restoring whatever scanline might have been broken, actually it was .info-board::before */
+  content: '';
+}
+
+.toggleable-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 20;
+  background: 
+    linear-gradient(to right, var(--neon) 2px, transparent 2px) 0 0,
+    linear-gradient(to bottom, var(--neon) 2px, transparent 2px) 0 0,
+    linear-gradient(to left, var(--neon) 2px, transparent 2px) 100% 0,
+    linear-gradient(to bottom, var(--neon) 2px, transparent 2px) 100% 0,
+    linear-gradient(to right, var(--neon) 2px, transparent 2px) 0 100%,
+    linear-gradient(to top, var(--neon) 2px, transparent 2px) 0 100%,
+    linear-gradient(to left, var(--neon) 2px, transparent 2px) 100% 100%,
+    linear-gradient(to top, var(--neon) 2px, transparent 2px) 100% 100%;
+  background-size: 15px 15px;
+  background-repeat: no-repeat;
+}
+
+.toggleable-section:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
