@@ -1611,3 +1611,77 @@ footer {
 .asset-card:hover .asset-thumb {
   filter: drop-shadow(0 0 6px rgba(0, 230, 214, 0.6));
 }
+/* Update core fire styles */
+.core-fire {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  z-index: 2;
+  background: radial-gradient(circle, rgba(255, 200, 50, 0.9) 10%, rgba(255, 60, 0, 0.7) 40%, rgba(20, 0, 0, 0.4) 60%, transparent 80%);
+  filter: blur(5px) contrast(1.2);
+  animation: core-flare 0.15s ease-in-out infinite alternate, spin 3s linear infinite;
+  mix-blend-mode: hard-light;
+  box-shadow: 0 0 40px rgba(255, 80, 0, 0.6) inset, 0 0 60px rgba(255, 50, 0, 0.8);
+}
+
+.core-fire-inner {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  z-index: 2;
+  background: radial-gradient(circle, #fff 15%, rgba(255, 230, 100, 1) 30%, rgba(255, 80, 0, 0.8) 50%, transparent 75%);
+  filter: blur(2px);
+  animation: core-flare-inner 0.1s ease-in-out infinite alternate-reverse, spin-reverse 1.5s linear infinite;
+  mix-blend-mode: screen;
+  box-shadow: 0 0 20px #fff;
+}
+
+@keyframes core-flare {
+  0% { transform: scale(1) rotate(0deg); opacity: 0.8; filter: blur(4px); }
+  50% { transform: scale(1.05) rotate(15deg); opacity: 1; filter: blur(6px); }
+  100% { transform: scale(1.1) rotate(30deg); opacity: 0.9; filter: blur(5px); }
+}
+
+@keyframes core-flare-inner {
+  0% { transform: scale(0.9) rotate(0deg); opacity: 0.9; }
+  100% { transform: scale(1.15) rotate(-20deg); opacity: 1; filter: blur(3px) brightness(1.5); }
+}
+
+/* Background Movies Container */
+.genos-bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  overflow: hidden;
+  background-color: #050a10;
+}
+
+.genos-bg-iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150vw;
+  height: 150vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+  border: none;
+  filter: saturate(1.2) contrast(1.1);
+}
+
+.genos-bg-iframe.active {
+  opacity: 0.15;
+}
+
+.genos-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(5, 10, 16, 0.8) 70%), linear-gradient(0deg, rgba(5, 10, 16, 0.9) 0%, transparent 20%, transparent 80%, rgba(5, 10, 16, 0.9) 100%);
+  pointer-events: none;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import './App.css'
 import genosIdle from './assets/default/genos_idle.gif'
+// ... (omitting some imports for brevity if I could, but I MUST NOT unless using the tool correctly. Wait, replace_string_in_file needs EXACT string).
 import genosSuperMove from './assets/Animations/genos_super_move.gif'
 import genosBlink from './assets/default/genos_blink.gif'
 import genosBlush from './assets/default/genos_blush.gif'
@@ -590,6 +591,34 @@ function ExpandableSection({ id, title, children, defaultExpanded = true, onMous
   )
 }
 
+function GenosBackground() {
+  const tenorIds = ['16051370', '14424982', '5402793842799270410', '1832920909499489156']
+  const [bgIndex, setBgIndex] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setBgIndex(current => (current + 1) % tenorIds.length)
+    }, 10000)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div className="genos-bg-container" aria-hidden="true">
+      {tenorIds.map((id, index) => (
+        <iframe
+          key={id}
+          className={`genos-bg-iframe ${index === bgIndex ? 'active' : ''}`}
+          src={`https://tenor.com/embed/${id}?autoplay=1`}
+          frameBorder="0"
+          scrolling="no"
+          title={`Genos BG ${id}`}
+        ></iframe>
+      ))}
+      <div className="genos-bg-overlay"></div>
+    </div>
+  )
+}
+
 function App() {
   const [pointer, setPointer] = useState({ x: 48, y: 28 })
   const [idleFrameIndex, setIdleFrameIndex] = useState(0)
@@ -728,6 +757,7 @@ function App() {
       onMouseEnter={() => triggerReaction('hover', 900)}
       onTouchStart={() => triggerReaction('focus', 1400)}
     >
+      <GenosBackground />
       <div
         className={`cursor-reticle ${isClicking ? 'cursor-reticle--active' : ''}`}
         style={{ left: `${pointer.x}%`, top: `${pointer.y}%` }}
