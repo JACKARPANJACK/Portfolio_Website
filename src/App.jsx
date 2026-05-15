@@ -11,6 +11,7 @@ import genosDefensive from './assets/default/genos_defensive.gif'
 import genosVengeful from './assets/default/genos_vengeful.gif'
 import genosSweating from './assets/default/genos_Sweating.gif'
 import genosYap from './assets/default/genos_yap.gif'
+import genosWierded from './assets/default/genos_Wierded.gif'
 import genosIncinerate from './assets/Genos_Gifs/genos_incinerate.gif'
 import genosLight from './assets/Genos_Gifs/genos_light.gif'
 import genosOverheat from './assets/Genos_Gifs/genos_overheat.gif'
@@ -18,6 +19,7 @@ import genosActionStand from './assets/Genos_Gifs/genos_stand.gif'
 import genosActionUp from './assets/Genos_Gifs/Genos_up.gif'
 import genosActionHeat from './assets/Genos_Gifs/genos_heat_dmg.gif'
 import genosActionIdles from './assets/Genos_Gifs/Genos_idles.gif'
+import genosJetdrive from './assets/Genos_Gifs/jetdrive.gif'
 import genosEhIdle from './assets/eh/genos_eh_idle.gif'
 import genosEhHappy from './assets/eh/genos_eh_happy.gif'
 import genosEhAngry from './assets/eh/genos_eh_angry.gif'
@@ -26,6 +28,7 @@ import genosEhVengeful from './assets/eh/genos_eh_vengeful.gif'
 import genosEhBlink from './assets/eh/genos_eh_blink.gif'
 import genosEhYap from './assets/eh/genos_eh_yap.gif'
 import genosEhDefensive from './assets/eh/genos__eh_defensive.gif'
+import genosEhWierded from './assets/eh/genos__eh_Wierded.gif'
 import genosCombat from './assets/eh/genos_combat.gif'
 import lockOn from './assets/Target Reticle/lockon.png'
 import lockOn2 from './assets/Target Reticle/Lockon2.png'
@@ -427,13 +430,32 @@ const genosFrames = [
   { label: 'Idle', src: genosIdle },
   { label: 'Action Idle', src: genosActionIdles },
   { label: 'Blink', src: genosBlink },
-  { label: 'Stand Ready', src: genosActionStand },
+  { label: 'Blush', src: genosBlush },
   { label: 'Happy', src: genosHappy },
-  { label: 'Defensive', src: genosDefensive },
+  { label: 'Angry', src: genosAngry },
   { label: 'Goofy', src: genosGoofy },
+  { label: 'Defensive', src: genosDefensive },
   { label: 'Vengeful', src: genosVengeful },
   { label: 'Sweating', src: genosSweating },
-  { label: 'Angry', src: genosAngry },
+  { label: 'Yap', src: genosYap },
+  { label: 'Wierded', src: genosWierded },
+  { label: 'Incinerate', src: genosIncinerate },
+  { label: 'Light', src: genosLight },
+  { label: 'Overheat', src: genosOverheat },
+  { label: 'Stand Ready', src: genosActionStand },
+  { label: 'Action Up', src: genosActionUp },
+  { label: 'Action Heat', src: genosActionHeat },
+  { label: 'Jetdrive', src: genosJetdrive },
+  { label: 'EH Idle', src: genosEhIdle },
+  { label: 'EH Happy', src: genosEhHappy },
+  { label: 'EH Angry', src: genosEhAngry },
+  { label: 'EH Goofy', src: genosEhGoofy },
+  { label: 'EH Vengeful', src: genosEhVengeful },
+  { label: 'EH Blink', src: genosEhBlink },
+  { label: 'EH Yap', src: genosEhYap },
+  { label: 'EH Defensive', src: genosEhDefensive },
+  { label: 'EH Wierded', src: genosEhWierded },
+  { label: 'Combat', src: genosCombat },
 ]
 
 const genosReactions = {
@@ -469,7 +491,7 @@ const genosReactions = {
   },
   art: {
     label: 'ART',
-    frame: genosEhIdle,
+    frame: genosActionStand,
     line: 'This looks great.',
   },
   media: {
@@ -494,7 +516,7 @@ const genosReactions = {
   },
   goofy: {
     label: 'NORMAL',
-    frame: genosEhIdle,
+    frame: genosEhGoofy,
     line: 'Sure thing.',
   },
   happy: {
@@ -502,6 +524,16 @@ const genosReactions = {
     frame: genosEhHappy,
     line: "I'm glad to see that.",
   },
+  combat: {
+    label: 'COMBAT',
+    frame: genosCombat,
+    line: "Target acquired. Engaging.",
+  },
+  jetdrive: {
+    label: 'JETDRIVE',
+    frame: genosJetdrive,
+    line: "Boosting.",
+  }
 }
 
 function App() {
@@ -521,7 +553,8 @@ function App() {
     const y = ((event.clientY - rect.top) / rect.height) * 100
     setPointer({ x, y })
 
-    const now = Date.now()
+    // eslint-disable-next-line react-hooks/purity
+    const now = Math.floor(performance.now())
     const movementDelta = Math.abs(x - idleMotionRef.current.x) + Math.abs(y - idleMotionRef.current.y)
 
     if (movementDelta > 7 && now - idleMotionTimeRef.current > 850) {
@@ -754,7 +787,7 @@ function App() {
           <img src={genosCoreIcon} alt="Genos Incineration Core" className="core-icon" />
         </div>
 
-        <div className={`genos-avatar-panel ${genosReaction?.label !== 'IDLE' ? 'genos-avatar-panel--reacting' : ''}`}>
+        <div key={reticlePulse} className={`genos-avatar-panel ${genosReaction?.label !== 'IDLE' ? 'genos-avatar-panel--reacting' : ''}`}>
           <p className="mode-label">{activeModeLabel} Mode</p>
 
           <div className={`genos-speech ${genosReaction?.label !== 'IDLE' ? 'genos-speech--active' : ''}`}>
@@ -810,7 +843,7 @@ function App() {
         </div>
       </section>
 
-      <section id="skills" className="info-board">
+      <section id="skills" className="info-board" onMouseEnter={() => triggerReaction('core', 2500)}>
         <h2 className="section-title">Technical Skills</h2>
         <div className="skill-grid">
           {skillGroups.map((group) => (
@@ -826,7 +859,7 @@ function App() {
         </div>
       </section>
 
-      <section id="experience" className="info-board">
+      <section id="experience" className="info-board" onMouseEnter={() => triggerReaction('chatter', 2500)}>
         <h2 className="section-title">Work Experience</h2>
         <div className="timeline">
           {workExperience.map((job) => (
@@ -849,7 +882,7 @@ function App() {
         </div>
       </section>
 
-      <section id="projects" className="project-grid">
+      <section id="projects" className="project-grid" onMouseEnter={() => triggerReaction('chatter', 2500)}>
         {projects.map((project) => (
           <article
             className="project-card"
@@ -880,7 +913,7 @@ function App() {
         ))}
       </section>
 
-      <section id="mods" className="mod-grid">
+      <section id="mods" className="mod-grid" onMouseEnter={() => triggerReaction('combat', 2500)}>
         {mods.map((mod) => (
           <article className="mod-card" key={mod.title}>
             <p className="card-title">{mod.title}</p>
@@ -892,7 +925,7 @@ function App() {
         ))}
       </section>
 
-      <section id="art-2d" className="info-board media-board">
+      <section id="art-2d" className="info-board media-board" onMouseEnter={() => triggerReaction('art', 2500)}>
         <h2 className="section-title">2D Art</h2>
         <div className="asset-grid">
           {twoDArtAssets.map((item) => (
@@ -919,7 +952,7 @@ function App() {
         </div>
       </section>
 
-      <section id="animations" className="info-board media-board">
+      <section id="animations" className="info-board media-board" onMouseEnter={() => triggerReaction('jetdrive', 2500)}>
         <h2 className="section-title">Animations (From Assets Folder)</h2>
         <div className="asset-grid">
           {animationAssets.map((item) => (
@@ -944,7 +977,7 @@ function App() {
         <p className="timeline-date">Apr 2023 - Apr 2027</p>
       </section>
 
-      <section id="videos" className="video-section">
+      <section id="videos" className="video-section" onMouseEnter={() => triggerReaction('media', 2500)}>
         <h2 className="section-title">Showcase Videos</h2>
         {videoSections.map((section) => (
           <div className="video-group" key={section.title}>
