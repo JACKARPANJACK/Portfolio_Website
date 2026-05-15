@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import target3 from './assets/Target Reticle/target_3.png';
-import target10 from './assets/Target Reticle/target_10.png';
+import target3 from '../assets/Target Reticle/target_3.png';
+import target10 from '../assets/Target Reticle/target_10.png';
 
 export function TrackingMissiles() {
   const [targets, setTargets] = useState([
@@ -25,16 +25,16 @@ export function TrackingMissiles() {
       {targets.map(t => (
         <div 
           key={t.id} 
-          className={\missile-tracker \\} 
-          style={{ left: \\%\, top: \\%\ }}
+          className={`missile-tracker ${t.active ? 'active' : ''}`} 
+          style={{ left: `${t.x}%`, top: `${t.y}%` }}
         >
           <img src={t.id === 1 ? target3 : target10} alt="" />
           <div className="tracker-info">
-            <span className="coord">X:\ Y:\</span>
-            <span className="status">\</span>
+            <span className="coord">X:{Math.round(t.x)} Y:{Math.round(t.y)}</span>
+            <span className="status">{t.active ? 'LOCKING' : 'SCANNING'}</span>
             <div className="tracker-more-info">
               <div>HOSTILE DETECTED</div>
-              <div>DIST: \m</div>
+              <div>DIST: {Math.floor(Math.random() * 500 + 100)}m</div>
               <div>THREAT LVL: HIGH</div>
               <div style={{ color: 'var(--sun)', marginTop: '4px' }}>[CLICK TO INTERCEPT]</div>
             </div>
