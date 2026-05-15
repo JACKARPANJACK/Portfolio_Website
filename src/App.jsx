@@ -51,6 +51,7 @@ const profile = {
   linkedin: 'https://www.linkedin.com/in/arpan-paramanik-7163912a0/',
   github: 'https://github.com/JACKARPANJACK',
   artstation: 'https://www.artstation.com/',
+  deviantart: 'https://www.deviantart.com/arpangtasa',
   youtube: 'https://www.youtube.com/@incinerate162',
   x: 'https://x.com/miles_mora91146',
   discord: 'mr.demongenoscyborg',
@@ -101,14 +102,39 @@ const animationAssets = Object.entries(
   }))
   .sort((a, b) => a.label.localeCompare(b.label))
 
-const twoDArtAssets = Object.entries(
+const defaultGifs = Object.entries(
   import.meta.glob('./assets/default/*.{gif,png,jpg,jpeg,webp}', { eager: true, import: 'default' }),
 )
   .map(([assetPath, src]) => ({
     src,
     label: toDisplayLabel(assetPath),
   }))
-  .sort((a, b) => a.label.localeCompare(b.label))
+  .slice(0, 3) 
+
+const sampleArts = Object.entries(
+  import.meta.glob('./assets/2dArtSamples/*.{gif,png,jpg,jpeg,webp}', { eager: true, import: 'default' }),
+)
+  .map(([assetPath, src]) => ({
+    src,
+    label: toDisplayLabel(assetPath),
+  }))
+
+const twoDArtAssets = [...defaultGifs, ...sampleArts].sort((a, b) => a.label.localeCompare(b.label))
+
+const deviantArtSketches = [
+  {
+    title: 'Raiden (MGR) Sketch',
+    link: 'https://www.deviantart.com/arpangtasa/art/Raiden-MGR-sketch-884507817',
+  },
+  {
+    title: 'Family Gaming Schedule',
+    link: 'https://www.deviantart.com/arpangtasa/art/Family-Gaming-Schedule-974670896',
+  },
+  {
+    title: 'Genos X Raiden',
+    link: 'https://www.deviantart.com/arpangtasa/art/Genos-X-Raiden-974671391',
+  },
+]
 
 const threeDArtItems = [
   {
@@ -529,6 +555,11 @@ const genosReactions = {
     frame: genosCombat,
     line: "Target acquired. Engaging.",
   },
+  superMove: {
+    label: 'SUPER',
+    frame: genosSuperMove,
+    line: "Incinerate!",
+  },
   jetdrive: {
     label: 'JETDRIVE',
     frame: genosJetdrive,
@@ -761,6 +792,9 @@ function App() {
             <a href={profile.artstation} target="_blank" rel="noreferrer">
               ArtStation
             </a>
+            <a href={profile.deviantart} target="_blank" rel="noreferrer">
+              DeviantArt
+            </a>
             <a href={profile.x} target="_blank" rel="noreferrer">
               Twitter / X
             </a>
@@ -932,6 +966,18 @@ function App() {
             <article className="asset-card" key={`2d-${item.src}`}>
               <img src={item.src} alt={item.label} className="asset-thumb" loading="lazy" />
               <p className="asset-title">{item.label}</p>
+            </article>
+          ))}
+        </div>
+        <h3 className="sub-section-title" style={{ marginTop: '2rem', marginBottom: '1rem', color: '#ffce3c', borderBottom: '1px solid #717278', paddingBottom: '0.3em' }}>DeviantArt Sketches & Embeds</h3>
+        <div className="asset-grid asset-grid-3d">
+          {deviantArtSketches.map((item) => (
+            <article className="asset-card" key={item.link}>
+              <p className="card-title">{item.title}</p>
+              <p className="card-summary">Check out my sketches on DeviantArt.</p>
+              <a href={item.link} target="_blank" rel="noreferrer" className="mini-link">
+                View Sketch
+              </a>
             </article>
           ))}
         </div>
