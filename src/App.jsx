@@ -37,11 +37,15 @@ import lockOn3 from './assets/Target Reticle/Lockon3.png'
 import lockOnFr from './assets/Target Reticle/lockon_fr.png'
 import lockOnVeh from './assets/Target Reticle/lockon_veh.png'
 import genosHitMarker from './assets/Target Reticle/genoshitmarker.png'
+import target28 from './assets/Target Reticle/target_28.png'
+import target35 from './assets/Target Reticle/target_35.png'
+import target2 from './assets/Target Reticle/target_2.png'
 import genosCoreIcon from './assets/Backpack_ArmyFlour_icon.webp'
 import trackGenosMain from './assets/Music/genos_main.mp3'
 import trackIntensePower from './assets/Music/intense_power.mp3'
 import trackIntenseUplift from './assets/Music/intense_uplift.mp3'
 import Chat from './components/Chat'
+import { TrackingMissiles } from './components/TrackingMissiles'
 
 const profile = {
   name: 'ARPAN PARAMANIK',
@@ -761,6 +765,19 @@ function App() {
       onTouchStart={() => triggerReaction('focus', 1400)}
     >
       <GenosBackground />
+      <TrackingMissiles />
+
+      {/* Trailing Targeting Rings */}
+      <div className="cursor-reticle-trail trail-1" style={{ left: `${pointer.x}%`, top: `${pointer.y}%` }} aria-hidden="true">
+        <img src={target28} alt="" />
+      </div>
+      <div className="cursor-reticle-trail trail-2" style={{ left: `${pointer.x}%`, top: `${pointer.y}%` }} aria-hidden="true">
+        <img src={target35} alt="" />
+      </div>
+      <div className="cursor-reticle-trail trail-3" style={{ left: `${pointer.x}%`, top: `${pointer.y}%` }} aria-hidden="true">
+        <img src={target2} alt="" />
+      </div>
+
       <div
         className={`cursor-reticle ${isClicking ? 'cursor-reticle--active' : ''}`}
         style={{ left: `${pointer.x}%`, top: `${pointer.y}%` }}

@@ -1902,3 +1902,173 @@ footer {
   inset: 0px;
   transform: scale(1);
 }
+/* Targeting Trails */
+.cursor-reticle-trail {
+  position: fixed;
+  z-index: 9998;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trail-1 { transition: left 180ms ease-out, top 180ms ease-out; opacity: 0.8; }
+.trail-2 { transition: left 300ms ease-out, top 300ms ease-out; opacity: 0.55; }
+.trail-3 { transition: left 450ms ease-out, top 450ms ease-out; opacity: 0.35; }
+
+.trail-1 img { 
+  width: 72px; 
+  height: 72px;
+  animation: spin-reticle-rev 6s linear infinite; 
+  filter: drop-shadow(0 0 6px #00e6d6); 
+}
+
+.trail-2 img { 
+  width: 100px; 
+  height: 100px;
+  animation: spin-reticle 9s linear infinite; 
+  filter: drop-shadow(0 0 8px rgba(255, 206, 60, 0.8)); 
+}
+
+.trail-3 img { 
+  width: 130px; 
+  height: 130px;
+  animation: spin-reticle-rev 15s linear infinite; 
+  filter: drop-shadow(0 0 10px rgba(255, 80, 0, 0.6)); 
+  opacity: 0.7;
+}
+
+@keyframes spin-reticle-rev {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.cursor-reticle-trail img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.app-shell:has(a:hover) .cursor-reticle-trail img,
+.app-shell:has(button:hover) .cursor-reticle-trail img,
+.app-shell:has(.info-card:hover) .cursor-reticle-trail img,
+.app-shell:has(.project-card:hover) .cursor-reticle-trail img {
+  filter: drop-shadow(0 0 15px #00e6d6) contrast(1.5);
+  animation-duration: 2s;
+}
+/* Tracking Missiles HUD */
+.tracking-missiles-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+}
+
+.missile-tracker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: left 2s ease-in-out, top 2s ease-in-out, opacity 0.5s ease;
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.missile-tracker.active {
+  opacity: 0.85;
+}
+
+.missile-tracker img {
+  width: 60px;
+  height: 60px;
+  animation: spin-reticle 4s linear infinite;
+  filter: drop-shadow(0 0 5px rgba(255, 80, 0, 0.7));
+}
+
+.missile-tracker.active img {
+  filter: drop-shadow(0 0 10px rgba(0, 230, 214, 0.9));
+  animation: spin-reticle-rev 2s linear infinite;
+}
+
+.tracker-info {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--neon);
+  text-shadow: 0 0 4px var(--neon);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.missile-tracker.active .tracker-info {
+  opacity: 1;
+}
+
+.tracker-info .status {
+  color: #ff3200;
+  font-weight: bold;
+}
+.tracker-info {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--neon);
+  text-shadow: 0 0 4px var(--neon);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.missile-tracker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: left 2s ease-in-out, top 2s ease-in-out, opacity 0.5s ease;
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto; /* ALLOW HOVER */
+  cursor: crosshair;
+}
+
+.tracker-more-info {
+  display: none;
+  background: rgba(4, 6, 13, 0.9);
+  border: 1px solid var(--neon);
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+  width: 140px;
+  text-align: left;
+}
+
+.missile-tracker:hover .tracker-info {
+  opacity: 1;
+}
+
+.missile-tracker:hover .tracker-more-info {
+  display: block;
+}
+
+.missile-tracker:hover img {
+  filter: drop-shadow(0 0 15px rgba(255, 80, 0, 1));
+  transform: scale(1.2);
+  transition: 0.2s ease;
+}
