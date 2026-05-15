@@ -1776,3 +1776,129 @@ footer {
   background: radial-gradient(circle at center, transparent 0%, rgba(5, 10, 16, 0.8) 70%), linear-gradient(0deg, rgba(5, 10, 16, 0.9) 0%, transparent 20%, transparent 80%, rgba(5, 10, 16, 0.9) 100%);
   pointer-events: none;
 }
+/* Custom cursor styles and HUD targets */
+.cursor-reticle {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 120ms ease, left 100ms ease-out, top 100ms ease-out;
+  mix-blend-mode: screen;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes spin-reticle {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.cursor-reticle img {
+  width: 48px;
+  height: 48px;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(0, 230, 214, 0.8));
+  animation: spin-reticle 3s linear infinite;
+}
+
+/* Crosshair lines extending from the cursor */
+.cursor-reticle::before,
+.cursor-reticle::after {
+  content: '';
+  position: absolute;
+  background: rgba(0, 230, 214, 0.6);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.3;
+  transition: opacity 0.3s ease, width 0.3s ease-out, height 0.3s ease-out;
+}
+
+.cursor-reticle::before {
+  top: 50%;
+  left: -50vw;
+  width: 100vw;
+  height: 1px;
+}
+
+.cursor-reticle::after {
+  top: -50vh;
+  left: 50%;
+  width: 1px;
+  height: 100vh;
+}
+
+.cursor-reticle--active {
+  transform: translate(-50%, -50%) scale(0.85);
+}
+
+.cursor-reticle--active img {
+  filter: drop-shadow(0 0 15px rgba(255, 50, 0, 0.9));
+  animation: spin-reticle 1s linear infinite reverse;
+}
+
+.cursor-reticle--active::before,
+.cursor-reticle--active::after {
+  background: rgba(255, 50, 0, 0.7);
+  opacity: 0.8;
+}
+
+/* Hovering amplifies crosshairs */
+.app-shell:has(.info-card:hover) .cursor-reticle::before,
+.app-shell:has(.toggleable-section:hover) .cursor-reticle::before,
+.app-shell:has(a:hover) .cursor-reticle::before,
+.app-shell:has(button:hover) .cursor-reticle::before {
+  opacity: 0.9;
+  box-shadow: 0 0 8px rgba(0, 230, 214, 0.8);
+}
+
+.app-shell:has(.info-card:hover) .cursor-reticle::after,
+.app-shell:has(.toggleable-section:hover) .cursor-reticle::after,
+.app-shell:has(a:hover) .cursor-reticle::after,
+.app-shell:has(button:hover) .cursor-reticle::after {
+  opacity: 0.9;
+  box-shadow: 0 0 8px rgba(0, 230, 214, 0.8);
+}
+
+/* Enhanced Target Corners for hoverable elements */
+.info-card::before,
+.project-card::before,
+.mod-card::before,
+.timeline-item::before,
+.asset-card::before,
+.hud-cell::before,
+.toggleable-section::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 20;
+  /* Glowing brackets in corners */
+  background: 
+    linear-gradient(to right, #00e6d6 3px, transparent 3px) 0 0,
+    linear-gradient(to bottom, #00e6d6 3px, transparent 3px) 0 0,
+    linear-gradient(to left, #00e6d6 3px, transparent 3px) 100% 0,
+    linear-gradient(to bottom, #00e6d6 3px, transparent 3px) 100% 0,
+    linear-gradient(to right, #00e6d6 3px, transparent 3px) 0 100%,
+    linear-gradient(to top, #00e6d6 3px, transparent 3px) 0 100%,
+    linear-gradient(to left, #00e6d6 3px, transparent 3px) 100% 100%,
+    linear-gradient(to top, #00e6d6 3px, transparent 3px) 100% 100%;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 8px #00e6d6);
+}
+
+.info-card:hover::before,
+.project-card:hover::before,
+.mod-card:hover::before,
+.timeline-item:hover::before,
+.asset-card:hover::before,
+.hud-cell:hover::before,
+.toggleable-section:hover::after {
+  opacity: 1;
+  inset: 0px;
+  transform: scale(1);
+}
