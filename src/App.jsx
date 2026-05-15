@@ -125,14 +125,17 @@ const deviantArtSketches = [
   {
     title: 'Raiden (MGR) Sketch',
     link: 'https://www.deviantart.com/arpangtasa/art/Raiden-MGR-sketch-884507817',
+    src: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/85c6c5aa-c96b-44e1-8578-a106a3a75dfb/demm2ll-fe204cb5-7d1e-42bf-9abc-3eb22754b5e5.jpg/v1/fill/w_956,h_836,q_70,strp/raiden_mgr_sketch_by_arpangtasa_demm2ll-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi84NWM2YzVhYS1jOTZiLTQ0ZTEtODU3OC1hMTA2YTNhNzVkZmIvZGVtbTJsbC1mZTIwNGNiNS03ZDFlLTQyYmYtOWFiYy0zZWIyMjc1NGI1ZTUuanBnIiwiaGVpZ2h0IjoiPD0xMTE5Iiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uud2F0ZXJtYXJrIl0sIndtayI6eyJwYXRoIjoiL3dtLzg1YzZjNWFhLWM5NmItNDRlMS04NTc4LWExMDZhM2E3NWRmYi9hcnBhbmd0YXNhLTQucG5nIiwib3BhY2l0eSI6OTUsInByb3BvcnRpb25zIjowLjQ1LCJncmF2aXR5IjoiY2VudGVyIn19.V7Hq4mSBtDnj2US_k-004KocDIXali25qwRGeiCahEg',
   },
   {
     title: 'Family Gaming Schedule',
     link: 'https://www.deviantart.com/arpangtasa/art/Family-Gaming-Schedule-974670896',
+    src: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/85c6c5aa-c96b-44e1-8578-a106a3a75dfb/dg4akvk-b1630af1-8f27-4c3a-b86b-7429a28de548.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi84NWM2YzVhYS1jOTZiLTQ0ZTEtODU3OC1hMTA2YTNhNzVkZmIvZGc0YWt2ay1iMTYzMGFmMS04ZjI3LTRjM2EtYjg2Yi03NDI5YTI4ZGU1NDgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.S_ke0phxtkOWCiSDXqMELXpz9SJP_m6xrO8qy3z3CnI',
   },
   {
     title: 'Genos X Raiden',
     link: 'https://www.deviantart.com/arpangtasa/art/Genos-X-Raiden-974671391',
+    src: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/85c6c5aa-c96b-44e1-8578-a106a3a75dfb/dg4al9b-ecc05e40-7c22-4d48-b961-09a402fbf190.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi84NWM2YzVhYS1jOTZiLTQ0ZTEtODU3OC1hMTA2YTNhNzVkZmIvZGc0YWw5Yi1lY2MwNWU0MC03YzIyLTRkNDgtYjk2MS0wOWE0MDJmYmYxOTAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.1-iulp7brHlR0qwDz72Z-dgiJkS72aqZ5uKBrgrd46M',
   },
 ]
 
@@ -970,13 +973,17 @@ function App() {
           ))}
         </div>
         <h3 className="sub-section-title" style={{ marginTop: '2rem', marginBottom: '1rem', color: '#ffce3c', borderBottom: '1px solid #717278', paddingBottom: '0.3em' }}>DeviantArt Sketches & Embeds</h3>
-        <div className="asset-grid asset-grid-3d">
+        <div className="asset-grid">
           {deviantArtSketches.map((item) => (
             <article className="asset-card" key={item.link}>
+              <img 
+                src={item.src} 
+                alt={item.title} 
+                className="asset-thumb" 
+              />
               <p className="card-title">{item.title}</p>
-              <p className="card-summary">Check out my sketches on DeviantArt.</p>
               <a href={item.link} target="_blank" rel="noreferrer" className="mini-link">
-                View Sketch
+                View on DeviantArt
               </a>
             </article>
           ))}
