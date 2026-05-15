@@ -297,6 +297,23 @@ const videoSections = [
 ]
 
 
+const techStackIcons = [
+  { name: 'Unity', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg' },
+  { name: 'Unreal', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg' },
+  { name: 'Godot', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg' },
+  { name: 'Java', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg' },
+  { name: 'C#', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg' },
+  { name: 'C++', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg' },
+  { name: 'Python', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
+  { name: 'JavaScript', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
+  { name: 'React', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+  { name: 'Node.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+  { name: 'Django', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg' },
+  { name: 'Android', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg' },
+  { name: 'Blender', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg' },
+  { name: 'Git', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' }
+]
+
 const skillGroups = [
   {
     title: 'Game Development',
@@ -951,6 +968,14 @@ function App() {
       </section>
 
       <ExpandableSection id="skills" title="Technical Skills" onMouseEnter={() => triggerReaction('core', 2500)}>
+          <div className="tech-stack-icons" style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center', marginBottom: '1.5rem', background: 'rgba(8, 13, 24, 0.4)', padding: '1rem', borderRadius: '1rem', border: '1px solid var(--line)' }}>
+            {techStackIcons.map(tech => (
+              <div key={tech.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
+                <img src={tech.url} alt={tech.name} title={tech.name} width="40" height="40" style={{ filter: 'drop-shadow(0 0 8px rgba(0, 230, 214, 0.4))', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.2)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'} />
+                <span style={{ fontSize: '0.65rem', fontFamily: 'var(--mono)', color: 'var(--text-soft)' }}>{tech.name}</span>
+              </div>
+            ))}
+          </div>
         <div className="skill-grid">
           {skillGroups.map((group) => (
             <article className="info-card" key={group.title}>
